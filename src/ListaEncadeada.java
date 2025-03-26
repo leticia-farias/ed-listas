@@ -167,12 +167,23 @@ public class ListaEncadeada {
 		ListNode setElement = new ListNode(elem, null);
 		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("Index = " + index + " e Size = " + size);
-
+		
 		else {
-			ListNode previous = findPrevious(index);
-			setElement.next = previous.next.next; // associa o next do elemento desatualizado para o novo elemento
-			previous.next = setElement; // atualiza o next do previous para o novo elemento
-			remove(index+1); // manda remover o elemento desatualizado
+			if (index == 0) { // elemento a ser atualizado é o head
+				setElement.next = head.next;
+				head = setElement;
+			}
+			
+			else {
+				ListNode previous = findPrevious(index);
+				if (previous.next.next == null) 
+					tail = setElement;
+				
+				else
+					setElement.next = previous.next.next; // associa o next do elemento desatualizado para o novo elemento
+				
+				previous.next = setElement; // atualiza o next do previous para o novo elemento
+			}
 		}
 		return setElement;
 	}
