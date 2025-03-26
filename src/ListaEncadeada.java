@@ -129,8 +129,8 @@ public class ListaEncadeada {
 				if (size == 1) { // caso tenha apenas um elemento na lista
 					clear();
 				} else { // caso tenha mais elementos
-					removedElement = head.element; // Armazena o elemento removido
-					head = head.next; // Atualiza o head para o próximo nó
+					removedElement = head.element; // armazena o elemento removido
+					head = head.next; // atualiza o head para o próximo nó
 					size--;
 				}
 			}
@@ -155,6 +155,7 @@ public class ListaEncadeada {
 			if (itr.element.equals(elem)) {
 				int index = i;
 				remove(index);
+				break;
 			} else {
 				itr = itr.next;
 			}
@@ -163,14 +164,15 @@ public class ListaEncadeada {
 	}
 
 	public Object set(int index, Object elem) {
-		ListNode setElement = new ListNode(elem, n);
+		ListNode setElement = new ListNode(elem, null);
 		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("Index = " + index + " e Size = " + size);
 
 		else {
 			ListNode previous = findPrevious(index);
-			previous.next = setElement;
-			remove(index);
+			setElement.next = previous.next.next; // associa o next do elemento desatualizado para o novo elemento
+			previous.next = setElement; // atualiza o next do previous para o novo elemento
+			remove(index+1); // manda remover o elemento desatualizado
 		}
 		return setElement;
 	}
