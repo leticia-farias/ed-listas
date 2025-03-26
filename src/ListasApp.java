@@ -41,7 +41,24 @@ public class ListasApp {
 		minhaLista.add(4,"Mario");  			
 		minhaLista.print();
 
-		// TO-DO (coloque seu código aqui para testas os métodos remove e set
+
+		// testa o método remove(index)
+		System.out.println();
+		System.out.println("removendo o elemento na posição 4");
+		minhaLista.remove(4);
+		minhaLista.print();
+		
+		// testa o método remove(object)
+		System.out.println();
+		System.out.println("removendo o elemento 'Judas'");
+		minhaLista.remove("Judas");
+		minhaLista.print();
+		
+		// testa set
+		System.out.println();
+		System.out.println("substituindo o elemento na posição 1 por 'Joseph'");
+		minhaLista.set(1, "Joseph");
+		minhaLista.print();
 	}
 
 }
