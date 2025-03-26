@@ -58,8 +58,8 @@ public class ListaEncadeada {
      	else {
      		if (index == 0)  // caso particular (previous = null)
              		return head.element;
-         		ListNode previous=findPrevious(index);   
-         		return previous.next.element;  	
+         	ListNode previous=findPrevious(index);   
+         	return previous.next.element;  	
     	}
     }
     private ListNode findPrevious (int index) {
@@ -111,15 +111,62 @@ public class ListaEncadeada {
     	size++;
     }
     public Object remove (int index) {
-    	// TO-DO (coloque se código aqui    	
+    	if (index < 0 || index > size) 
+    		throw new IndexOutOfBoundsException("Index = " + index + " e Size = " + size);
+    	else {
+    		if (index == 0) { // o elemento a ser removido for o head
+    			if (size == 1) { // caso tenha apenas um elemento na lista
+    				clear(); 
+    			}
+    			else { // caso tenha mais elementos  
+    				ListNode itr = head;
+    				head = itr.next;
+    				size--;
+    			}
+    		}
+    		
+    		else { // o elemento a ser removido não é o head
+    			if (index == size - 1) { // caso está em uma posição intermediária
+    				ListNode previous = findPrevious(index);   
+    				ListNode element = previous.next;
+    				previous.next = element.next;
+    			}
+    			else { // caso seja o último elemento
+    				ListNode previous = findPrevious(index);   
+    				previous.next = null;
+    				tail = previous;
+    			}
+    			size--;
+    		}
+    	}
     	return null;
     }
+    
     public boolean remove (Object elem) {
-    	// TO-DO (coloque se código aqui
+    	ListNode itr = head;
+    	for (int i = 0; i < size; i++) {
+    		if (itr.element.equals(elem)) {
+    			int index = i;
+    			remove (index);
+    		}
+    		else {
+    			itr = itr.next;
+    		}
+    	}
         return true;
     }    
+    
+
     public Object set (int index, Object elem) {
-    	// TO-DO (coloque se código aqui   	
+    	if (index < 0 || index > size) 
+    		throw new IndexOutOfBoundsException("Index = " + index + " e Size = " + size);
+    	
+    	else {
+    		ListNode previous = findPrevious(index);
+    		ListNode setElement = new ListNode(elem, previous.next);
+    		previous.next = setElement;
+    		remove(index);
+    	}
     	return null;
     }
 
