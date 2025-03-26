@@ -56,7 +56,7 @@ public class ListasApp {
 		
 		// testa set
 		System.out.println();
-		System.out.println("subbstituindo o elemento na posição 1 por 'Joseph'");
+		System.out.println("substituindo o elemento na posição 1 por 'Joseph'");
 		minhaLista.set(1, "Joseph");
 		minhaLista.print();
 	}

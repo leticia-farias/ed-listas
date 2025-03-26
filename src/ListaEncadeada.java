@@ -150,38 +150,54 @@ public class ListaEncadeada {
 	}
 
 	public boolean remove(Object elem) {
-		ListNode itr = head;
-		for (int i = 0; i < size; i++) {
-			if (itr.element.equals(elem)) {
-				int index = i;
-				remove(index);
-				break;
-			} else {
-				itr = itr.next;
-			}
+		if (head == null)
+			return false;
+
+		if (head.element.equals(elem)) {
+			head = head.next;
+			if (head == null)
+				tail = null;
+			size--;
+			return true;
 		}
-		return true;
+
+		ListNode previous = head;
+		ListNode current = head.next;
+
+		while (current != null) {
+			if (current.element.equals(elem)) {
+				previous.next = current.next;
+				if (current.next == null)
+					tail = previous;
+				size--;
+				return true;
+			}
+			previous = current;
+			current = current.next;
+		}
+		return false; // ent elemento não encontrado
 	}
 
 	public Object set(int index, Object elem) {
 		ListNode setElement = new ListNode(elem, null);
 		if (index < 0 || index > size)
 			throw new IndexOutOfBoundsException("Index = " + index + " e Size = " + size);
-		
+
 		else {
 			if (index == 0) { // elemento a ser atualizado é o head
 				setElement.next = head.next;
 				head = setElement;
 			}
-			
+
 			else {
 				ListNode previous = findPrevious(index);
-				if (previous.next.next == null) 
+				if (previous.next.next == null)
 					tail = setElement;
-				
+
 				else
-					setElement.next = previous.next.next; // associa o next do elemento desatualizado para o novo elemento
-				
+					setElement.next = previous.next.next; // associa o next do elemento desatualizado para o novo
+															// elemento
+
 				previous.next = setElement; // atualiza o next do previous para o novo elemento
 			}
 		}
